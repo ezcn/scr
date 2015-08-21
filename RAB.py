@@ -79,7 +79,7 @@ def constrained_sum_sample_pos(n, total):
 # ***** list of loci to be used *************
 mysitestobeused={}
 
-for line in open(mylistofsites, 'r').readlines():
+for line in open(mylistofsites, 'r'):
 	x=line.rstrip().split()
 	chromosome=x[0]; position=x[1]
 	if not chromosome in mysitestobeused: 
@@ -91,7 +91,7 @@ mycouplesoffreqs=[]
 mycouplesofcounts=[]
 
 countloci=0
-for line in open(myinputderivedallelecounts, 'r').readlines():
+for line in open(myinputderivedallelecounts, 'r'):
 	myvec=line.rstrip().split()
 	chrom=myvec[0]; pos=myvec[1]
 	if pos in mysitestobeused[chrom]: 
