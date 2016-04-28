@@ -1,0 +1,42 @@
+#=======================================
+#
+# Sequence: LLOJ001846-RA     from: 1   to: 3069
+# HitCount: 1
+#
+# Pattern: CAATCAAC
+#
+#=======================================
+
+   Start     End  Strand Pattern        Sequence
+    2696    2703       + regex:CAATCAAC CAATCAAC
+
+#---------------------------------------
+#---------------------------------------
+#=======================================
+#
+# Sequence: LLOJ001866-RA     from: 1   to: 1141
+# HitCount: 1
+#
+# Pattern: CAATCAAC
+#
+#=======================================
+
+   Start     End  Strand Pattern        Sequence
+     975     982       + regex:CAATCAAC CAATCAAC
+
+#---------------------------------------
+#---------------------------------------
+#=======================================
+#
+# Sequence: LLOJ001872-RA     from: 1   to: 6999
+# HitCount: 4
+#
+# Pattern: CAATCAAC
+#
+#=======================================
+
+   Start     End  Strand Pattern        Sequence
+     754     761       + regex:CAATCAAC CAATCAAC
+    1849    1856       + regex:CAATCAAC CAATCAAC
+    2797    2804       + regex:CAATCAAC CAATCAAC
+    3695    3702       + regex:CAATCAAC CAATCAAC
