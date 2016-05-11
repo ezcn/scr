@@ -51,8 +51,8 @@ cluster_dz={}
 for ss in seq_dz:
 	cluster_dz[ss]=[]
 	seqlen = seq_dz[ss][0][1] - seq_dz[ss][0][0]	
-	if seqlen < clusterlen: pass # seq piu piccola del cluster 
-	elif  len(seq_dz[ss]) -1  < minhits : pass # hits minori del minimo richiesto 
+	#if seqlen < clusterlen: pass # seq piu piccola del cluster 
+	if  len(seq_dz[ss]) -1  < minhits : pass # hits minori del minimo richiesto 
 	else: 
 		for y in range(0, seqlen, step):
 			start=y ; end=y+clusterlen; clulist=[]
