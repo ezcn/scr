@@ -1,0 +1,36 @@
+########################################
+# Program: dreg
+# Rundate: Tue 10 May 2016 20:40:54
+# Commandline: dreg
+#    -sequence 10Xblackfly_8.3v2_asm.ctg.fasta
+#    -pattern "TCAACAATCAA[TCGA][TCGA]"
+#    -outfile black.dreg
+# Report_format: seqtable
+# Report_file: black.dreg
+########################################
+
+#=======================================
+# Sequence: ctg_prova     from: 1   to: 18000
+# HitCount: 3
+#
+# Pattern: TCAACAATCAA[TCGA][TCGA]
+#
+#=======================================
+
+  Start     End  Strand Pattern                       Sequence
+    100     113       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACA
+    700     713       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACT
+   1500    1513       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACG
+   2000    2013       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACA
+   6000    6013       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACT
+   6200    6213       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACG
+   6400    6413       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACA
+  15000   15013       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACT
+  15200   15213       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACG
+  15400   15413       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACA
+  15600   15613       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACT
+  15800   15813       + regex:TCAACAATCAA[TCGA][TCGA] TCAACAATCAACG
+
+#---------------------------------------
+#---------------------------------------
+
