@@ -62,7 +62,7 @@ def deleted_mj_jackknife(theta,jackkpairs ) :
         	thetajmj=g*theta-sum_a
 	
 	        for i in jackkpairs:
-        		mj=i[0]; thetajstar=i[1]; hj=n/mj;
+        		mj=i[0]; thetajstar=i[1]; hj=n/float(mj);
                 	pseudothetajstar= hj*theta-(hj-1)*thetajstar;
  	               	b=(1/float(hj-1))*(pseudothetajstar-thetajmj)**2; sum_b+=b
         	#print sum_b
