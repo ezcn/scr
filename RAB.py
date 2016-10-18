@@ -137,8 +137,9 @@ for j in mjs:
 	start=stop
 	#print "/////////////////", stop 
 
-#listofjackkpairsRAB=[x[1] for x in jackkpairsRAB]
-
+listofjackkpairsRAB=[x[1] for x in jackkpairsRAB]
+simplestd=numpy.std(listofjackkpairsRAB)
+simplevar=numpy.var(listofjackkpairsRAB)
 
 myRAB= RAB(mycouplesoffreqs); 
 myjackrab=deleted_mj_jackknife(myRAB ,jackkpairsRAB )
@@ -151,7 +152,7 @@ myjackr2ab=deleted_mj_jackknife(myR2AB ,jackkpairsR2AB )
 
 
 
-results=[str(x) for x in [ "RAB\t%s" %(myRAB), "jRAB\t%s" %(myjackrab[0]) , "sigmasquare\t%s" % (myjackrab[1]),  "R2AB\t%s" %(myR2AB), "jR2AB\t%s" %(myjackrab[0]) , "sigmasquareR2AB\t%s" % (myjackr2ab[1])]]
+results=[str(x) for x in [ "RAB\t%s" %(myRAB), "jRAB\t%s" %(myjackrab[0]) , "sigmasquare\t%s" % (myjackrab[1]),  "R2AB\t%s" %(myR2AB), "jR2AB\t%s" %(myjackrab[0]) , "sigmasquareR2AB\t%s" % (myjackr2ab[1]),  "std\t%s" %(simplestd), "var\t%s" %(simplevar)]]
 
 print "\n".join(results) 
 
