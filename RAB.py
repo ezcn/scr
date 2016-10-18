@@ -20,7 +20,7 @@ four  columns  no header space or tab delimited
 2) haploid size of pop1
 3) haploid size of pop2 
 
-4) tab/space delimited list of site to be used -> chromosome position
+4) mylistofsites -> tab/space delimited list of site to be used -> chromosome position
 
 5) mygroups -> number of groups for the deleted jackknife 
 
@@ -94,11 +94,12 @@ countloci=0
 for line in open(myinputderivedallelecounts, 'r'):
 	myvec=line.rstrip().split()
 	chrom=myvec[0]; pos=myvec[1]
-	if pos in mysitestobeused[chrom]: 
-		countloci+=1 
-		f= [float(x) for x in line.rstrip().split()] 
-       		mycouplesoffreqs.append( ( f[2]/float(mypop1haploidsize), f[3]/float(mypop2haploidsize) ) )
-        	mycouplesofcounts.append(( f[2], f[3]) )
+	if chrom in mysitestobeused:
+		if pos in mysitestobeused[chrom]: 
+			countloci+=1 
+			f= [float(x) for x in line.rstrip().split()] 
+       			mycouplesoffreqs.append( ( f[2]/float(mypop1haploidsize), f[3]/float(mypop2haploidsize) ) )
+        		mycouplesofcounts.append(( f[2], f[3]) )
 
 #print mycouplesofcounts
 #print mycouplesoffreqs
