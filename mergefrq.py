@@ -79,5 +79,5 @@ out=open("excluded.freq.out", "w" )
 sys.stdout=out 
 for ex in excludedloci: 
 	res=[i for i in ex]
-	print "\t".join(ex)  
+	print "\t".join(res)  
 
