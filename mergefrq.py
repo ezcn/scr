@@ -29,7 +29,7 @@ out=open("merged.freq.out", "w")
 sys.stdout=out   
 
 ###
-title=["chr", "loc"]
+title=["chr", "loc", "ref", "alt"]
 countpop=1
 for n in range(len(files)): 
 	title+=["ref_p%s" %(countpop) , "alt_p%s" %(countpop) ]
@@ -64,6 +64,9 @@ for loc in site_dz:
 			#print theallele 
 			if not len(set(theallele)) <= 1: allelearethesame=False 
 		if  allelearethesame: 
+			refall= zipped[0][0].split(":")[0]
+                        altall= zipped[1][0].split(":")[0]
+                        res+=[refall, altall]
 			ref=[aa.split(":")[1] for aa in zipped[0]] #print "yay" , zipped 
 			alt=[aa.split(":")[1] for aa in zipped[1]]
 			refalt_bypop= [item for sublist in zip(ref,alt) for item in sublist]
