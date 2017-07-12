@@ -9,17 +9,15 @@ input file: first line is ignored;  as many column as wanted ony first two taken
 - first column:  distance in cM 
 - second column: r2  
 
-usage: 
+usage:   python Ne_LD.py infile n_haplo """
 
-python infile n_haplo 
-
-"""
+#'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' 
 
 infile = sys.argv[1]
 n_haplo = sys.argv[2] # number of chromosomes used to calculate ld 
 min_nb_observ_in_bin = 2 # minimum nuber of observations in a bin 
-maxdist_cM = 0.25  # 0.5 max distance in cM between marker pairs 
-step_cM = 0.005  #0.005 increment in cM for bins 
+maxdist_cM = 20  # 0.5 max distance in cM between marker pairs 
+step_cM = 0.01   #0.005 increment in cM for bins 
 minr2 = 0.00001 # minimun r2 to be considered  
 maxr2 = 0.9999 # maximum r2 to be considered
 
@@ -60,9 +58,11 @@ def t_estim (morg_dist):
 
 bins = [i for i in numpy.arange (0, maxdist_cM, step_cM )]
 binsnames = [i for i in range(1, len(bins) ) ]
-bins_data = dict(zip(binsnames, bins[1:]))
-#print len(bins),  len(binsnames)  
+#binsnames =map(chr, range(65, 65+len(bins)-1 ))   
+
+bins_data = dict(zip(binsnames, bins[0:-1]))
 #print bins_data 
+
 
 
 #''''''''''   bin the input file 
@@ -78,37 +78,31 @@ with open (infile, "r") as f:
 			raw_data['r2'].append(inr2)
 
 df = pandas.DataFrame(raw_data, columns = ['distance', 'r2'])
-df['categories'] = pandas.cut(df['distance'], bins, labels=binsnames)
+df['categories'] = pandas.cut(df['distance'], bins,  labels=binsnames, include_lowest=True)
+
+cat_counts=pandas.value_counts(df['categories'])
 
 #with pandas.option_context('display.max_rows', None, 'display.max_columns', 5):
 #	print(df) 	
  
 
-#'''''''''''  iterate over bins of the df 
-r2_data = {}
+#'''''''''''  iterate over bins of the df and print results 
+
+title=['bin','nb_marker_pairs' ,  'average_r2', 'average_distance_cM' , 'time_gen', 'ne' , 'ne_corr']
+print "\t".join(title)
+
 for b in binsnames:
-	#print '###########'
+	#print '###'
 	r2set = df.loc[df['categories']==b]['r2'] # select all r2 values in the bin 
-	#print '>>>', b
+	#print '>>>', b, bins_data[b] 
 	#print r2set 
 	if len(r2set) >= min_nb_observ_in_bin: 
 		meanr2 = numpy.mean(r2set) # average r2 in bin 
-		bin_distance = (bins_data[b]-step_cM/2)*100 ## average distance in Morgan in the bin  (midpoint in the bin)	
-	
+		bin_distance = (bins_data[b]+step_cM/2.0) / 100.0 ## average distance in Morgan in the bin  (midpoint in the bin)	
+
 		time = t_estim( bin_distance) 
 		ne_corr = ne_estim_corr(meanr2, bin_distance , n_haplo)  
 		ne = ne_estim(meanr2, bin_distance)  
 
-		r2_data[b] =[meanr2, bin_distance/float(100), time, ne, ne_corr ]
-		#print r2_data[b]
-
-
-#''''''''''  print results 
-title=['bin', 'average_r2', 'average_distance_cM' , 'time_gen', 'ne' , 'ne_corr']
-print "\t".join(title) 
-
-for bb in r2_data: 
-	res=[bb]+r2_data[bb]
-	print "\t".join(map(str, res)) 
-
-
+		res=[b, len(r2set) , meanr2, bin_distance, time, ne, ne_corr ]
+        	print "\t".join(map(str, res))
