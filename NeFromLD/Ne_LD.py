@@ -60,11 +60,6 @@ bins = [i for i in numpy.arange (0, maxdist_cM, step_cM )]
 binsnames = [i for i in range(1, len(bins) ) ]
 #binsnames =map(chr, range(65, 65+len(bins)-1 ))   
 
-bins_data = dict(zip(binsnames, bins[0:-1]))
-#print bins_data 
-
-
-
 #''''''''''   bin the input file 
 raw_data = {'distance':[], 'r2':[]}
 
@@ -94,15 +89,17 @@ print "\t".join(title)
 for b in binsnames:
 	#print '###'
 	r2set = df.loc[df['categories']==b]['r2'] # select all r2 values in the bin 
+	distset = df.loc[df['categories']==b]['distance']
 	#print '>>>', b, bins_data[b] 
 	#print r2set 
 	if len(r2set) >= min_nb_observ_in_bin: 
 		meanr2 = numpy.mean(r2set) # average r2 in bin 
-		bin_distance = (bins_data[b]+step_cM/2.0) / 100.0 ## average distance in Morgan in the bin  (midpoint in the bin)	
+		bin_distance = numpy.mean(distset)/100.0 ## average distance in Morgan in the bin		
 
-		time = t_estim( bin_distance) 
-		ne_corr = ne_estim_corr(meanr2, bin_distance , n_haplo)  
-		ne = ne_estim(meanr2, bin_distance)  
+		if bin_distance >0 : 
+			time = t_estim( bin_distance) 
+			ne_corr = ne_estim_corr(meanr2, bin_distance , n_haplo)  
+			ne = ne_estim(meanr2, bin_distance)  
 
-		res=[b, len(r2set) , meanr2, bin_distance, time, ne, ne_corr ]
-        	print "\t".join(map(str, res))
+			res=[b, len(r2set) , meanr2, bin_distance, time, ne, ne_corr ]
+        		print "\t".join(map(str, res))
