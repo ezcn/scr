@@ -11,7 +11,7 @@ input file: first line is ignored;  as many column as wanted ony first two taken
 
 usage: 
 
-python infile nbOfIndividualsUsedForLDCalculation 
+python infile n_haplo 
 
 """
 
