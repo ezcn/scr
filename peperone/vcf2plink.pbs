@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -q workq
+#PBS -N PROVA
+#PBS -l nodes=1:ppn=1
+#PBS -o ooo.test.out 
+#PBS -e ooo.test.err 
+
+/opt/bio/bin/vcftools --gzvcf /home/colonna/ONGOING/pep/data/10.all.mergedSNPs.vcf.gz.gz --plink --out /home/colonna/ONGOING/pep/data/10.all.mergedSNPs

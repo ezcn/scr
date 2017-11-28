@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -q workq
+#PBS -N PROVA
+#PBS -l nodes=1:ppn=1
+#PBS -o ooo.test.out 
+#PBS -e ooo.test.err 
+
+/opt/bio/bin/vcftools --gzvcf /home/colonna/ONGOING/pep/data/10.all.mergedSNPs.vcf.gz.gz  --out /home/colonna/ONGOING/pep/ld/pubescens --geno-r2 --ld-window-bp 1000 --keep /home/colonna/ONGOING/pep/pop/pubescens.vcft 

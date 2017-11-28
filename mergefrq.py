@@ -16,17 +16,18 @@ for fname in files:
    		next(f)
 		for line in f: 	
 			x=line.rstrip().split()
-			if (x[0], x[1]) in site_dz:
-               			site_dz[(x[0], x[1])].append(x[4:]) 
+			chrom=x[0]; pos=x[1]
+			if (chrom, pos) in site_dz:
+               			site_dz[(chrom, pos)].append(x[4:]) 
       	          	else:
-                        	site_dz[(x[0], x[1])]= [x[4:]]
+                        	site_dz[(chrom, pos)]= [x[4:]]
 
-#
+#print site_dz 
 # 
 excludedloci=[] # loci that are not present in all files
 
-out=open("merged.freq.out", "w")  
-sys.stdout=out   
+#out=open("merged.freq.out", "w")  
+#sys.stdout=out   
 
 ###
 title=["chr", "loc", "ref", "alt"]
@@ -46,10 +47,10 @@ for loc in site_dz:
 
 	else:   
 		#print loc,  site_dz[loc]
-		res=[l for l in loc]
-		for  info in  site_dz[loc]: 
+		res=[l for l in loc]  # chromosome and position in the results 
+		for  info in  site_dz[loc]:  
 			if not len(info)==2: 
-				info.append("X:0") 
+				info.append("X:0")   # add an X:0 if there is only info for one allele 
 		#print site_dz[loc] 
 
 		#check alleles are the same 
@@ -76,7 +77,7 @@ for loc in site_dz:
 			reason=loc+ ("not same allele", ) 
 			excludedloci.append(reason)
 
-out.close() 
+#out.close() 
 
 out=open("excluded.freq.out", "w" ) 
 sys.stdout=out 

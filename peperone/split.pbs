@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -q workq
+#PBS -N PROVA
+#PBS -l nodes=1:ppn=1
+
+rstart=$1 
+rend=$2
+pathtofolder="/home/colonna/ONGOING/pep/" 
+
+#PBS -o $pathtofolder/ooo.$rstart.out 
+#PBS -e $pathtofolder/ooo.$rstart.err 
+
+
+echo "/usr/bin/python /home/colonna/ONGOING/pep/scrpep/splitchr.py $rstart $rend > /home/colonna/ONGOING/pep/data/$rstart.all.mergedSNPs.mergedTaxa.vcf"
