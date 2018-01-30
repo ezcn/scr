@@ -1,0 +1,23 @@
+
+VCFtools - v0.1.10
+(C) Adam Auton 2009
+
+Parameters as interpreted:
+	--gzvcf /home/colonna/ONGOING/pep/data/10.all.mergedSNPs.vcf.gz.gz
+	--keep /home/colonna/ONGOING/pep/pop/pubescens.vcft
+	--ld-window-bp 1000
+	--max-alleles 2
+	--min-alleles 2
+	--geno-r2
+	--out /home/colonna/ONGOING/pep/ld/pubescens
+
+Using zlib version: 1.2.3
+Versions of zlib >= 1.2.4 will be *much* faster when reading zipped VCF files.
+Reading Index file.
+File contains 115952 entries and 384 individuals.
+Applying Required Filters.
+Keeping individuals in 'keep' list
+Filtering sites by number of alleles
+After filtering, kept 13 out of 384 Individuals
+After filtering, kept 104036 out of a possible 115952 Sites
+Outputting Pairwise LD (bi-allelic only)
