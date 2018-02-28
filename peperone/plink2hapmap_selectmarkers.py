@@ -6,11 +6,12 @@ mymap=sys.argv[2]
 mytransposedped=sys.argv[3]
 
 #~~~~~~  read marker list 
-sitestoinclude=[]
+sitestoinclude={}
 for iline in open(mysiteslist) : 
 	y=iline.split() 
-	sitename=y[1]
-	sitestoinclude.append(sitename ) 		
+	sitename=y[0]; chrom=sitename.split("_")[0].lstrip("S")
+	if not chrom in sitestoinclude: sitestoinclude[chrom]=[]
+	sitestoinclude[chrom].append(sitename ) 		
 
 #~~~~~   read map file 
 linestokeep=[]		
@@ -18,8 +19,9 @@ d_sites={}
 countline=1
 for mline in open (mymap) : 
 	m=mline.split() 
-	tempsitename=m[1]
-	if tempsitename in sitestoinclude: 
+	tempsitename=m[1]; tempchr=m[0]
+	if tempsitename in sitestoinclude[tempchr]: 
+		sitestoinclude[tempchr].remove(tempsitename) 
 		linestokeep.append(countline)
 		d_sites[countline]=m 
 	countline+=1 
