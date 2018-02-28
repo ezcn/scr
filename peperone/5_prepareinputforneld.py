@@ -12,10 +12,10 @@ for c in range (1 , 13) :
 				snp=x[2]; phy=float(x[3]); gen=float(x[5].rstrip(")") )   #gen
 				d_pos[snp]=[phy, gen ] 
 
-title=['chra', 'bpa', 'snpa', 'chrb', 'bpb', 'snpb', 'r2','type', 'bpa-bpb', 'phy_ab' , 'gen_ab']
+title=["CHR_A", "BP_A", "SNP_A", "CHR_B","BP_B", "SNP_B", "R2", "species", "clade", "type", "BP_A-BP_B", "phy_ab", "gen_ab"]
 print "\t".join(title) 
 
-with open ("/home/enza/oogaprotocol/PEPERONE/3_ld/all.ldout") as g: 
+with open ("/home/enza/oogaprotocol/PEPERONE/3_ld_species_q/all.species.ld") as g: 
 	next (g) 
 	for gline in g: 
 		y=gline.split() 

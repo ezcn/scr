@@ -1,0 +1,40 @@
+#~~~~~~~~~~ solo markers entro nbp 
+
+for ( n in c(200, 500, 1000, 2000, 5000 ) ) {
+
+nbp=n
+binsize=100
+
+myd_nbp<- subset(mysp, BP_B-BP_A<=nbp)  
+
+intervals_nbp<- cut (myd_nbp$BP_B-myd_nbp$BP_A, breaks=seq(from= 0 , to=max(myd_nbp$BP_B-myd_nbp$BP_A) , by=binsize), right=FALSE)
+
+x_mark_labels=seq(from= 0 , to=max(myd_nbp$BP_B-myd_nbp$BP_A) , by=binsize)
+
+myint_nbp<- cbind (myd_nbp, intervals_nbp)    
+
+ldsummary_nbp<- myint_nbp %>% group_by(species, type, intervals_nbp) %>% summarize  ( nobs=length(R2) ,  r2_mean=mean(R2), r2_std=std.error(R2), r2low=r2_mean-r2_std , r2up=r2_mean+r2_std  )
+
+plottitle=paste("r2_physdist_", nbp, ".png", sep="")
+gtitle=paste("r^2 and physical distance (<", nbp,  " bp ) ", sep= "") 
+
+png(plottitle, res=300, units="cm", width=25, height =15)
+
+print ( 
+#### geom_point(aes(size=nobs)) ####
+#### + facet_grid(type ~ . )#####
+ggplot(na.omit(ldsummary_nbp), aes(intervals_nbp, r2_mean, col=species ) ) +geom_point( )+ geom_errorbar(aes(ymin=r2low, ymax=r2up) ) + theme_bw() + ggtitle(gtitle) + xlab("distance between markers (bp) ") + ylab(" mean r^2 +- s.e.m. ")  + scale_colour_manual(values=mycol) + scale_x_discrete(labels=x_mark_labels) +
+theme(legend.position="top", legend.title=element_blank(),
+      axis.title.x = element_text(face=1, size=10),
+      axis.text.x  = element_text( size=10, angle = 90, hjust = 1),
+      axis.title.y = element_text(face=1, size=10),
+     axis.text.y  = element_text(vjust=0.5, size=10) )
+) 
+
+dev.off()
+
+}
+
+
+
+

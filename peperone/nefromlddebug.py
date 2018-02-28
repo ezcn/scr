@@ -9,15 +9,16 @@ input file: first line is ignored;  as many column as wanted ony first two taken
 - first column:  distance in cM 
 - second column: r2  
 
-usage:   python Ne_LD.py infile n_haplo """
+usage:   python Ne_LD.py infile n_haplo keyword """
 
 #'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' 
 
 infile = sys.argv[1]
 n_haplo = sys.argv[2] # number of chromosomes used to calculate ld 
-min_nb_observ_in_bin = 2 # minimum nuber of observations in a bin 
-maxdist_cM =10         # 0.25 for 1kg   # 0.5 max distance in cM between marker pairs 
-step_cM = 0.001           # 0.01 for 1kg 	   #0.005 increment in cM for bins 
+keyword = sys.argv[3:] # something to identify the samples 
+min_nb_observ_in_bin = 20 # minimum nuber of observations in a bin 
+maxdist_cM =2        # 0.25 for 1kg   # 0.5 max distance in cM between marker pairs 
+step_cM = 0.01            # 0.01 for 1kg 	   #0.005 increment in cM for bins 
 minr2 = 0.0001 # minimun r2 to be considered  
 maxr2 = 0.9999 # maximum r2 to be considered
 
@@ -83,7 +84,7 @@ cat_counts=pandas.value_counts(df['categories'])
 
 #'''''''''''  iterate over bins of the df and print results 
 
-title=['bin','nb_marker_pairs' ,  'average_r2', 'average_distance_cM' , 'time_gen', 'ne' , 'ne_corr']
+title=['bin','nb_marker_pairs' ,  'average_r2', 'average_distance_cM' , 'time_gen', 'ne' , 'ne_corr', 'species', 'clade', 'type']
 print "\t".join(title)
 
 for b in binsnames:
@@ -103,5 +104,5 @@ for b in binsnames:
 			ne_corr = ne_estim_corr(meanr2, bin_distance , n_haplo)  
 			ne = ne_estim(meanr2, bin_distance)  
 
-			res=[b, len(r2set) , meanr2, bin_distance*100, time, ne, ne_corr ]
+			res=[b, len(r2set) , meanr2, bin_distance*100, time, ne, ne_corr] + keyword
         		print "\t".join(map(str, res))

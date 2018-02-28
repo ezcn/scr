@@ -14,7 +14,8 @@ print "\t".join(map(str, title ))
 for sp in specieslist:
 	if not (sp=="eximium" or sp=="galapagoense") :  
 		#filename= "/home/enza/oogaprotocol/PEPERONE/8_inbreeding/het/%s.het" % (sp)
-		filename= "/home/enza/oogaprotocol/PEPERONE/8_inbreeding/ibs/%s.genome" % (sp)
+		#filename= "/home/enza/oogaprotocol/PEPERONE/8_inbreeding/ibs/%s.genome" % (sp)
+		filename= "/home/enza/oogaprotocol/PEPERONE/8_inbreeding/ibs_nonfounder/%s.genome" % (sp)
 		for sline in open (filename): 
 			y=sline.rstrip().split()
 			sid=y[0]
