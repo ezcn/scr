@@ -1,6 +1,7 @@
 import sys 
 import argparse
 import re 
+import numpy as np
 
 
 
@@ -22,12 +23,14 @@ def snpstatLineParser(line):
         return [position, countA, countB,  diploidTotal, imputeInfo]  
     	#return(position)    
 
-def snpsPerWindow (snpPositions, coreSnp, windowsize): 
-    positionStart=coreSnp-windowsize/float(2) #min(snpPositions)
-    positionEnd=coreSnp+windowsize/float(2)#max(snpPositions)
-    return [int(positionStart), int(positionEnd), len([x for x in snpPositions if positionStart <= x <= positionEnd])] 
 
-   
+def snpsPerWindow(listofpositions, coreSnpPos, window):
+#"""modified from https://stackoverflow.com/questions/54237254/count-values-in-overlapping-sliding-windows-in-python"""
+    bin_starts = coreSnpPos-window/float(2) #np.arange(start, end+1-window, step)
+    bin_ends = bin_starts + window
+    last_index = np.searchsorted(listofpositions, bin_ends, side='right')
+    first_index = np.searchsorted(listofpositions, bin_starts, side='left')
+    return  [int(bin_starts), int(bin_ends), last_index - first_index]  
 
 def main(): 
     parser = argparse.ArgumentParser()
@@ -61,7 +64,7 @@ def main():
     output.write( " ".join (["impute_info", "window_bp", "maf", "positionStart", "positionEnd",  "nSNPs", "\n"])) 
     if len(corePositions)>0: 
 	    for i in corePositions:
-		results= [args.i, args.w, args.maf]+snpsPerWindow(allPositions, int(i), args.w) +['\n']
+		results= [args.i, args.w, args.maf] + snpsPerWindow(allPositions,int(i) , args.w )  +['\n']
 		output.write( " ".join(map(str,results )))	
     else: print ('not enough  SNPs with maf > %s and impute info > %s ' % (args.i,  args.maf) )		
     
